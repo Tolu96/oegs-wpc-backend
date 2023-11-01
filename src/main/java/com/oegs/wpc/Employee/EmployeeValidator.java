@@ -16,6 +16,7 @@ public class EmployeeValidator {
 
     public boolean creationPreCondition(Employee employee) {
         employee.getCreatedAt().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+        employee.getEmployedSince().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         employee.setEmployeeId(UUID.randomUUID());
         List<Employee> newEmployee = Collections.singletonList(employee);
         return newEmployee.stream().anyMatch(Objects::nonNull);

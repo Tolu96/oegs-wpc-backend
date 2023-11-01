@@ -37,11 +37,12 @@ public class Employee {
     private NationalityEnum nationality;
     @NotNull
     private LocalDate employedSince;
-    private boolean isEmployed;
     @NotNull
     private final LocalDateTime createdAt = LocalDateTime.now();
     @NotNull
     private LocalDateTime updatedAt;
+    
+    private boolean isEmployed;
 
     public Employee(UUID employeeId, String firstName, String lastName, String address, int postCode, String town,
                     GenderEnum genderEnum, NationalityEnum nationality, LocalDate employedSince, boolean isEmployed,
