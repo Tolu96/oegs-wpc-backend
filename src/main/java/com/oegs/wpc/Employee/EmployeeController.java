@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -30,8 +31,9 @@ public class EmployeeController {
     }
 
     @PatchMapping(path = "{employeeId}")
-    public void updateEmployee(@PathVariable("employeeId") @RequestBody UUID employeeId, Employee employee) {
-        employeeService.updateEmployee(employeeId, employee);
+    public Employee patchEmployee(@PathVariable("employeeId") @RequestBody UUID employeeId, @RequestBody Map<String,
+            Object> fields) {
+        return employeeService.patchEmployee(employeeId, fields);
     }
 
 }
