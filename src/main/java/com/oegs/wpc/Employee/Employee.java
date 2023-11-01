@@ -32,7 +32,7 @@ public class Employee {
     @NotNull
     private String town;
     @NotNull
-    private GenderEnum genderEnum;
+    private GenderEnum gender;
     @NotNull
     private NationalityEnum nationality;
     @NotNull
@@ -41,11 +41,11 @@ public class Employee {
     private final LocalDateTime createdAt = LocalDateTime.now();
     @NotNull
     private LocalDateTime updatedAt;
-    
+
     private boolean isEmployed;
 
     public Employee(UUID employeeId, String firstName, String lastName, String address, int postCode, String town,
-                    GenderEnum genderEnum, NationalityEnum nationality, LocalDate employedSince, boolean isEmployed,
+                    GenderEnum gender, NationalityEnum nationality, LocalDate employedSince, boolean isEmployed,
                     LocalDateTime updatedAt) {
         this.employeeId = employeeId;
         this.firstName = firstName;
@@ -53,7 +53,7 @@ public class Employee {
         this.address = address;
         this.postCode = postCode;
         this.town = town;
-        this.genderEnum = genderEnum;
+        this.gender = gender;
         this.nationality = nationality;
         this.employedSince = employedSince;
         this.isEmployed = isEmployed;
