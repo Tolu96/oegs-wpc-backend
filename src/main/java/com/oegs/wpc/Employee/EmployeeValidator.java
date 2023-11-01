@@ -15,7 +15,7 @@ import java.util.UUID;
 public class EmployeeValidator {
 
     public boolean creationPreCondition(Employee employee) {
-        employee.getCreatedAt().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+        employee.setUpdatedAt(LocalDateTime.now());
         employee.setEmployeeId(UUID.randomUUID());
         List<Employee> newEmployee = Collections.singletonList(employee);
         return newEmployee.stream().anyMatch(Objects::nonNull);
@@ -23,7 +23,7 @@ public class EmployeeValidator {
 
     public void patchPreCondition(Employee employee) {
         employee.setUpdatedAt(LocalDateTime.now());
-        employee.getUpdatedAt().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+
     }
 
 }

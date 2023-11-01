@@ -30,6 +30,11 @@ public class EmployeeController {
         return employeeService.createNewEmployee(newEmployee);
     }
 
+    @DeleteMapping(path = "{employeeId}")
+    public void deleteEmployee(@PathVariable("employeeId") UUID employeeId) {
+        employeeService.deleteEmployee(employeeId);
+    }
+
     @PatchMapping(path = "{employeeId}")
     public Employee patchEmployee(@PathVariable("employeeId") @RequestBody UUID employeeId, @RequestBody Map<String,
             Object> fields) {
