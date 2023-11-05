@@ -4,6 +4,7 @@ package com.oegs.wpc.Employee;
 import com.oegs.wpc.enums.GenderEnum;
 import com.oegs.wpc.enums.NationalityEnum;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,20 +21,31 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID employeeId;
+    @NotNull
     private String firstName;
+    @NotNull
     private String lastName;
+    @NotNull
     private String address;
+    @NotNull
     private int postCode;
+    @NotNull
     private String town;
-    private GenderEnum genderEnum;
+    @NotNull
+    private GenderEnum gender;
+    @NotNull
     private NationalityEnum nationality;
+    @NotNull
     private LocalDate employedSince;
-    private boolean isEmployed;
+    @NotNull
     private final LocalDateTime createdAt = LocalDateTime.now();
+    @NotNull
     private LocalDateTime updatedAt;
 
+    private boolean isEmployed;
+
     public Employee(UUID employeeId, String firstName, String lastName, String address, int postCode, String town,
-                    GenderEnum genderEnum, NationalityEnum nationality, LocalDate employedSince, boolean isEmployed,
+                    GenderEnum gender, NationalityEnum nationality, LocalDate employedSince, boolean isEmployed,
                     LocalDateTime updatedAt) {
         this.employeeId = employeeId;
         this.firstName = firstName;
@@ -41,7 +53,7 @@ public class Employee {
         this.address = address;
         this.postCode = postCode;
         this.town = town;
-        this.genderEnum = genderEnum;
+        this.gender = gender;
         this.nationality = nationality;
         this.employedSince = employedSince;
         this.isEmployed = isEmployed;

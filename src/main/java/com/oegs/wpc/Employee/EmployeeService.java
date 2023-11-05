@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.lang.reflect.Field;
 import java.util.*;
 
 @Service
@@ -32,27 +32,37 @@ public class EmployeeService {
     }
 
     public Employee createNewEmployee(Employee newEmployee) {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-        if (employeeRepository.existsById(newEmployee.getEmployeeId())) {
-            newEmployee.getCreatedAt().format(dtf);
-            newEmployee.getUpdatedAt().format(dtf);
+        if (employeeValidator.creationPreCondition(newEmployee)) {
             return employeeRepository.save(newEmployee);
-
         }
         throw new ResponseStatusException(HttpStatus.CONFLICT, "Please fill all fields");
     }
 
-    @Transactional
-    public void updateEmployee(UUID employeeId, Employee updatedEmployee) {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-        if (!employeeValidator.updatedPreCondition(updatedEmployee)) {
-            Employee oldEmployee =
-                    (employeeRepository.findById(employeeId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee does not exist")));
-            oldEmployee.setUpdatedAt(LocalDateTime.now());
-            oldEmployee.getUpdatedAt().format(dtf);
-
+    public void deleteEmployee(UUID employeeId) {
+        boolean exists = employeeRepository.existsById(employeeId);
+        if (!exists) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "Employee with id " + employeeId + " does not " + "exist");
+        } else {
+            employeeRepository.deleteById(employeeId);
         }
+    }
+
+    @Transactional
+    public Employee patchEmployee(UUID employeeId, Map<String, Object> fields) {
+        Optional<Employee> oldEmployee =
+                Optional.ofNullable((employeeRepository.findById(employeeId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee does not exist"))));
+
+        if (oldEmployee.isPresent()) {
+            fields.forEach((key, value) -> {
+                Field field = ReflectionUtils.findField(Employee.class, key);
+                Objects.requireNonNull(field).setAccessible(true);
+                ReflectionUtils.setField(field, oldEmployee.get(), value);
+            });
+
+            employeeValidator.patchPreCondition(Objects.requireNonNull(oldEmployee.stream().findFirst().orElse(null)));
+            return employeeRepository.save(oldEmployee.get());
+        }
+        throw new ResponseStatusException(HttpStatus.CONFLICT, "Update was not possible. Please try it again later");
     }
 }
