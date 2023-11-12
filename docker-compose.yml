@@ -1,4 +1,4 @@
-version: '3.1'
+version: '3.8'
 
 services:
 
@@ -19,3 +19,13 @@ services:
       MYSQL_PASSWORD: 123456
       MYSQL_ROOT_PASSWORD: 123456
       MYSQL_DATABASE: oegs-db
+
+  keycloak:
+    image: keycloak/keycloak:22.0
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    command:
+      [ 'start-dev' ]
+    ports:
+      - 8180:8080
