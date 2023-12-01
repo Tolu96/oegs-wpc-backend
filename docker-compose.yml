@@ -10,7 +10,7 @@ services:
 
   oegs-wpc-db:
     image: mysql:8.2.0
-    command: --default-authentication-plugin=mysql_native_password
+    command: --default-authentication-plugin=mysql_native_password --lower_case_table_names=0
     restart: always
     ports:
       - 3307:3306
@@ -19,13 +19,15 @@ services:
       MYSQL_PASSWORD: 123456
       MYSQL_ROOT_PASSWORD: 123456
       MYSQL_DATABASE: oegs-db
+      TZ: Europe/Berlin
 
   keycloak:
     image: keycloak/keycloak:22.0
+    command:
+      [ 'start-dev' ]
+    restart: always
+    ports:
+      - 8180:8080
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
-    command:
-      [ 'start-dev' ]
-    ports:
-      - 8180:8080
