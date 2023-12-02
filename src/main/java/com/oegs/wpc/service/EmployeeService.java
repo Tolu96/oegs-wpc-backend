@@ -1,10 +1,10 @@
-package com.oegs.wpc.service.employee;
+package com.oegs.wpc.service;
 
-import com.oegs.wpc.mapper.employee.EmployeeMapper;
-import com.oegs.wpc.repository.employee.EmployeeRepository;
-import com.oegs.wpc.dto.employee.EmployeeDTO;
-import com.oegs.wpc.model.employee.Employee;
-import com.oegs.wpc.validation.employee.EmployeeValidator;
+import com.oegs.wpc.mapper.EmployeeMapper;
+import com.oegs.wpc.repository.EmployeeRepository;
+import com.oegs.wpc.dto.EmployeeDTO;
+import com.oegs.wpc.model.Employee;
+import com.oegs.wpc.validation.EmployeeValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

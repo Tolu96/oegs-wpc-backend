@@ -1,4 +1,4 @@
-package com.oegs.wpc.dto.client;
+package com.oegs.wpc.dto;
 
 
 import lombok.AllArgsConstructor;

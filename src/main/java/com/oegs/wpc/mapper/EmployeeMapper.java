@@ -1,11 +1,10 @@
-package com.oegs.wpc.mapper.employee;
+package com.oegs.wpc.mapper;
 
-import com.oegs.wpc.dto.employee.EmployeeDTO;
-import com.oegs.wpc.model.employee.Employee;
+import com.oegs.wpc.dto.EmployeeDTO;
+import com.oegs.wpc.model.Employee;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.factory.Mappers;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.UUID;

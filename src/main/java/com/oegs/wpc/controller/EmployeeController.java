@@ -1,8 +1,8 @@
-package com.oegs.wpc.controller.employee;
+package com.oegs.wpc.controller;
 
-import com.oegs.wpc.dto.employee.EmployeeDTO;
-import com.oegs.wpc.service.employee.EmployeeService;
-import com.oegs.wpc.model.employee.Employee;
+import com.oegs.wpc.dto.EmployeeDTO;
+import com.oegs.wpc.service.EmployeeService;
+import com.oegs.wpc.model.Employee;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

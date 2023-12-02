@@ -1,10 +1,10 @@
-package com.oegs.wpc.service.client;
+package com.oegs.wpc.service;
 
-import com.oegs.wpc.dto.client.ClientDTO;
-import com.oegs.wpc.mapper.client.ClientMapper;
-import com.oegs.wpc.model.client.Client;
-import com.oegs.wpc.repository.client.ClientRepository;
-import com.oegs.wpc.validation.client.ClientValidator;
+import com.oegs.wpc.dto.ClientDTO;
+import com.oegs.wpc.mapper.ClientMapper;
+import com.oegs.wpc.model.Client;
+import com.oegs.wpc.repository.ClientRepository;
+import com.oegs.wpc.validation.ClientValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

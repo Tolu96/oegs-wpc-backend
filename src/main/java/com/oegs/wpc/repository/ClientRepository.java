@@ -1,6 +1,6 @@
-package com.oegs.wpc.repository.client;
+package com.oegs.wpc.repository;
 
-import com.oegs.wpc.model.client.Client;
+import com.oegs.wpc.model.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

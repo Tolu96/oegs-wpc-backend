@@ -1,8 +1,8 @@
-package com.oegs.wpc.controller.client;
+package com.oegs.wpc.controller;
 
-import com.oegs.wpc.dto.client.ClientDTO;
-import com.oegs.wpc.model.client.Client;
-import com.oegs.wpc.service.client.ClientService;
+import com.oegs.wpc.dto.ClientDTO;
+import com.oegs.wpc.model.Client;
+import com.oegs.wpc.service.ClientService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,8 +31,8 @@ public class ClientController {
     }
 
     @PostMapping(value = "/", produces = "application/json")
-    public ResponseEntity<ClientDTO> createNewClient(@RequestBody ClientDTO newClientDTO) {
-        return new ResponseEntity<>(clientService.createNewClient(newClientDTO), HttpStatus.CREATED);
+    public ResponseEntity<ClientDTO> createNewClient(@RequestBody ClientDTO clientDTO) {
+        return new ResponseEntity<>(clientService.createNewClient(clientDTO), HttpStatus.CREATED);
     }
 
     @PutMapping(path = "{clientId}")
@@ -44,6 +44,6 @@ public class ClientController {
     @DeleteMapping(path = "{clientId}")
     public ResponseEntity<String> deleteClient(@PathVariable("clientId") UUID clientId) {
         clientService.deleteClient(clientId);
-        return new ResponseEntity<>("Client with the Id" + clientId + "successfully deleted", HttpStatus.OK);
+        return new ResponseEntity<>("Client with the Id" + clientId + " successfully deleted", HttpStatus.OK);
     }
 }
