@@ -1,13 +1,12 @@
-package com.oegs.wpc.validation.employee;
+package com.oegs.wpc.validation;
 
-import com.oegs.wpc.repository.employee.EmployeeRepository;
-import com.oegs.wpc.model.employee.Employee;
+import com.oegs.wpc.repository.EmployeeRepository;
+import com.oegs.wpc.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -15,8 +14,8 @@ import java.util.*;
 @Component
 public class EmployeeValidator {
 
-    public final String EMPLOYEE_NOT_FOUND_MESSAGE = "Employee with this ID does not exist and therefore could not be" +
-            " found";
+    public final String EMPLOYEE_NOT_FOUND_MESSAGE = "Employee with this ID does not exist and therefore could not " +
+            "be" + " found";
     public final String WRONG_PERMISSION = "You do not have the right permissions to execute this action";
     public final String UPDATE_NOT_POSSIBLE = "Update was not possible. Please try it again later";
     public final String FILL_ALL_FIELDS = "Please fill all fields";
@@ -44,9 +43,9 @@ public class EmployeeValidator {
 
     private void isEmployedDateChecker(Employee employee) {
         LocalDate employedSinceDate = LocalDate.now();
-        if (employee.getIsEmployed() && employee.getEmployedSince() == null) {
+        if (employee.isEmployed() && employee.getEmployedSince() == null) {
             employee.setEmployedSince(employedSinceDate);
-        } else if (employee.getIsEmployed()) {
+        } else if (employee.isEmployed()) {
             employee.setEmployedSince(employee.getEmployedSince());
         } else {
             employee.setEmployedSince(null);

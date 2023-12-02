@@ -1,7 +1,6 @@
-package com.oegs.wpc.repository.employee;
+package com.oegs.wpc.repository;
 
-import com.oegs.wpc.model.employee.Employee;
-import lombok.AllArgsConstructor;
+import com.oegs.wpc.model.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

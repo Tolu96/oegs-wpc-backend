@@ -1,14 +1,14 @@
 CREATE TABLE IF NOT EXISTS Employee(
 	employee_id BINARY(16) PRIMARY KEY,
-	firstName VARCHAR(255) NOT NULL,
-	lastName VARCHAR(255) NOT NULL,
+	first_name VARCHAR(255) NOT NULL,
+	last_name VARCHAR(255) NOT NULL,
 	address VARCHAR(255) NOT NULL,
 	postcode INT NOT NULL,
 	city VARCHAR(189) NOT NULL,
 	gender TINYINT NOT NULL,
 	nationality TINYINT NOT NULL,
-	employedSince DATE,
-	isEmployed BOOLEAN NOT NULL DEFAULT TRUE,
+	employed_since DATE,
+	is_employed BOOLEAN NOT NULL DEFAULT FALSE,
 	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	modified_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -23,15 +23,16 @@ CREATE TABLE IF NOT EXISTS Client(
 );
 CREATE TABLE IF NOT EXISTS Absence(
     absence_id BINARY(16) PRIMARY KEY,
-    absence_status VARCHAR(10) NOT NULL,
+    employee_id BINARY(16) NOT NULL,
+    absence_status TINYINT NOT NULL,
     description VARCHAR(255),
     absence_start DATETIME NOT NULL,
     absence_end DATETIME NOT NULL,
     total_vacation int NOT NULL,
-    half_day BOOLEAN,
     remaining_vacation int NOT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    modified_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    modified_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (employee_id) REFERENCES Employee(employee_id)
 );
 CREATE TABLE IF NOT EXISTS WorkingHours(
     working_hours_id BINARY(16) PRIMARY KEY,

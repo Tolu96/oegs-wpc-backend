@@ -20,6 +20,7 @@ public abstract class AuditableEntity {
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
+    @JsonIgnore
     public LocalDateTime created_at;
 
     @LastModifiedDate

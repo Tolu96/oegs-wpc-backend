@@ -1,7 +1,7 @@
-package com.oegs.wpc.validation.client;
+package com.oegs.wpc.validation;
 
-import com.oegs.wpc.model.client.Client;
-import com.oegs.wpc.repository.client.ClientRepository;
+import com.oegs.wpc.model.Client;
+import com.oegs.wpc.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;

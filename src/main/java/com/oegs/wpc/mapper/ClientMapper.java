@@ -1,11 +1,10 @@
-package com.oegs.wpc.mapper.client;
+package com.oegs.wpc.mapper;
 
-import com.oegs.wpc.dto.client.ClientDTO;
-import com.oegs.wpc.model.client.Client;
+import com.oegs.wpc.dto.ClientDTO;
+import com.oegs.wpc.model.Client;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.factory.Mappers;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.UUID;

@@ -1,11 +1,11 @@
-package com.oegs.wpc.model.client;
-
+package com.oegs.wpc.model;
 
 import com.oegs.wpc.audit.AuditableEntity;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import lombok.*;
-import org.hibernate.annotations.DynamicUpdate;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.UUID;
 
