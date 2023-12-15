@@ -9,6 +9,7 @@ import com.oegs.wpc.model.Employee;
 import com.oegs.wpc.repository.AbsenceRepository;
 import com.oegs.wpc.repository.EmployeeRepository;
 import com.oegs.wpc.validation.AbsenceValidator;
+import com.oegs.wpc.validation.EmployeeValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +26,7 @@ public class AbsenceService extends AbsenceValidator {
     private EmployeeRepository employeeRepository;
     private AbsenceMapper absenceMapper;
     private EmployeeMapper employeeMapper;
+    private EmployeeValidator employeeValidator;
 
     public List<AbsenceDTO> getAllAbsenceEntries() {
         return absenceMapper.modelsToDtos(absenceRepository.findAll());
@@ -37,20 +39,24 @@ public class AbsenceService extends AbsenceValidator {
     @Transactional
     public AbsenceDTO createNewAbsenceEntry(AbsenceDTO absenceDTO) {
         Absence absence = absenceMapper.dtoToModel(absenceDTO);
+
+        employeeValidator.employeeExistenceChecker(absence.getEmployee().getEmployeeId());
         EmployeeDTO employeeDto =
                 employeeMapper.modelToDto(employeeRepository.findById(absence.getEmployee().getEmployeeId()).get());
         Employee employee = employeeMapper.dtoToModel(employeeDto);
         absence.setEmployee(employee);
+
+        creationPreCondition(absence);
+
         return absenceMapper.modelToDto(absenceRepository.save(absence));
     }
 
     @Transactional
     public AbsenceDTO updateAbsenceEntry(UUID absenceId, Absence absenceEntryToUpdate) {
-        if (updatePreCondition(absenceId)) {
-            absenceEntryToUpdate.setAbsenceId(absenceId);
-            return absenceMapper.modelToDto(absenceRepository.save(absenceEntryToUpdate));
-        }
-        return null;
+        updatePreCondition(absenceEntryToUpdate, absenceId);
+        absenceEntryToUpdate.setAbsenceId(absenceId);
+        absenceEntryToUpdate.setEmployee(absenceRepository.findById(absenceId).get().getEmployee());
+        return absenceMapper.modelToDto(absenceRepository.save(absenceEntryToUpdate));
     }
 
     public void deleteAbsenceEntry(UUID absenceId) {

@@ -1,5 +1,6 @@
 package com.oegs.wpc.dto;
 
+import com.oegs.wpc.enums.StatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,9 +13,8 @@ import java.util.UUID;
 @Setter
 public class WorkingHoursDTO {
     UUID workingHoursId;
-    private double workedHoursToday;
-    private double workedHoursSum;
-    private LocalDateTime workHourStart;
-    private LocalDateTime workHourEnd;
-    private double breakTime;
+    LocalDateTime workHourStart;
+    LocalDateTime workHourEnd;
+    EmployeeDTO employee;
+    StatusEnum status;
 }

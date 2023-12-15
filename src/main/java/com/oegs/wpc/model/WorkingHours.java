@@ -1,6 +1,7 @@
 package com.oegs.wpc.model;
 
 import com.oegs.wpc.audit.AuditableEntity;
+import com.oegs.wpc.enums.StatusEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,19 +22,17 @@ public class WorkingHours extends AuditableEntity {
     @Column(name = "working_hours_id")
     private UUID workingHoursId;
 
-    @Column(name = "worked_hours_today")
-    private double workedHoursToday;
-
-    @Column(name = "worked_hours_sum")
-    private double workedHoursSum;
-
     @Column(name = "work_hour_start")
     private LocalDateTime workHourStart;
 
     @Column(name = "work_hour_end")
     private LocalDateTime workHourEnd;
 
-    @Column(name = "break_time")
-    private double breakTime;
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "employee_id", referencedColumnName = "employee_id")
+    private Employee employee;
+
+    @Column(name = "status")
+    private StatusEnum status;
 
 }

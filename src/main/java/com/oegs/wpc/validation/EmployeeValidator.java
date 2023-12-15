@@ -1,14 +1,14 @@
 package com.oegs.wpc.validation;
 
-import com.oegs.wpc.repository.EmployeeRepository;
 import com.oegs.wpc.model.Employee;
+import com.oegs.wpc.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.UUID;
 
 
 @Component
@@ -25,18 +25,17 @@ public class EmployeeValidator {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    public boolean creationPreCondition(Employee employee) {
+    public void creationPreCondition(Employee employee) {
         fieldLengthChecker(employee);
         isEmployedDateChecker(employee);
-        return true;
     }
 
-    public boolean updatePreCondition(Employee employee, UUID employeeId) {
+    public void updatePreCondition(Employee employee, UUID employeeId) {
         if (employeeExistenceChecker(employeeId)) {
             fieldLengthChecker(employee);
             isEmployedDateChecker(employee);
             permissionChecker();
-            return true;
+            return;
         }
         throw new ResponseStatusException(HttpStatus.CONFLICT, UPDATE_NOT_POSSIBLE);
     }

@@ -34,19 +34,16 @@ public class ClientService extends ClientValidator {
     @Transactional
     public ClientDTO createNewClient(ClientDTO clientDTO) {
         Client client = clientMapper.dtoToModel(clientDTO);
-        if (creationPreCondition(client)) {
-            return clientMapper.modelToDto(clientRepository.save(client));
-        }
-        return null;
+        creationPreCondition(client);
+        return clientMapper.modelToDto(clientRepository.save(client));
     }
 
     @Transactional
     public ClientDTO updateClient(UUID clientId, Client clientToUpdate) {
-        if (updatePreCondition(clientToUpdate, clientId)) {
-            clientToUpdate.setClientId(clientId);
-            return clientMapper.modelToDto(clientRepository.save(clientToUpdate));
-        }
-        return null;
+        updatePreCondition(clientToUpdate, clientId);
+        clientToUpdate.setClientId(clientId);
+        return clientMapper.modelToDto(clientRepository.save(clientToUpdate));
+
     }
 
     public void deleteClient(UUID clientId) {
