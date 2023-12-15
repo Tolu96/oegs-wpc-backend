@@ -4,7 +4,10 @@ import com.oegs.wpc.audit.AuditableEntity;
 import com.oegs.wpc.enums.GenderEnum;
 import com.oegs.wpc.enums.NationalityEnum;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.UUID;

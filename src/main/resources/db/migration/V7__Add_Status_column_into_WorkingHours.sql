@@ -1,0 +1,2 @@
+ALTER TABLE WorkingHours
+ADD status TINYINT NOT NULL DEFAULT 0;

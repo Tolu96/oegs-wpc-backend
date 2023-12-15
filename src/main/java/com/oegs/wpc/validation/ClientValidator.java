@@ -23,15 +23,14 @@ public class ClientValidator {
     @Autowired
     private ClientRepository clientRepository;
 
-    public boolean creationPreCondition(Client client) {
+    public void creationPreCondition(Client client) {
         fieldLengthChecker(client);
-        return true;
     }
 
-    public boolean updatePreCondition(Client client, UUID clientId) {
+    public void updatePreCondition(Client client, UUID clientId) {
         if (clientExistenceChecker(clientId)) {
             fieldLengthChecker(client);
-            return true;
+            return;
         }
         throw new ResponseStatusException(HttpStatus.CONFLICT, UPDATE_NOT_POSSIBLE);
     }

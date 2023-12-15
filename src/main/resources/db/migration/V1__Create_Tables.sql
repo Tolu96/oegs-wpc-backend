@@ -26,18 +26,14 @@ CREATE TABLE IF NOT EXISTS Absence(
     employee_id BINARY(16) NOT NULL,
     absence_status TINYINT NOT NULL,
     description VARCHAR(255),
-    absence_start DATETIME NOT NULL,
-    absence_end DATETIME NOT NULL,
-    total_vacation int NOT NULL,
-    remaining_vacation int NOT NULL,
+    absence_start DATE NOT NULL,
+    absence_end DATE NOT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     modified_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (employee_id) REFERENCES Employee(employee_id)
 );
 CREATE TABLE IF NOT EXISTS WorkingHours(
     working_hours_id BINARY(16) PRIMARY KEY,
-    worked_hours_today float NOT NULL DEFAULT 0,
-    worked_hours_sum float NOT NULL DEFAULT 0,
     work_hour_start DATETIME NOT NULL,
     work_hour_end DATETIME NOT NULL,
     break_time float,
