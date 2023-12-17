@@ -4,10 +4,7 @@ import com.oegs.wpc.audit.AuditableEntity;
 import com.oegs.wpc.enums.GenderEnum;
 import com.oegs.wpc.enums.NationalityEnum;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -17,6 +14,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder(toBuilder = true)
 public class Employee extends AuditableEntity {
 
     @Id
@@ -41,4 +39,7 @@ public class Employee extends AuditableEntity {
 
     @Column(name = "is_employed")
     private boolean isEmployed;
+
+    @Column(name = "remaining_vacation")
+    private int remainingVacation;
 }

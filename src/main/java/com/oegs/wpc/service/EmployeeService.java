@@ -22,7 +22,6 @@ public class EmployeeService extends EmployeeValidator {
 
     public List<EmployeeDTO> getAllEmployee() {
         return employeeMapper.modelsToDtos(employeeRepository.findAll());
-
     }
 
     public Optional<EmployeeDTO> getEmployeeById(UUID employeeId) {
