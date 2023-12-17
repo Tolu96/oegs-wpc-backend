@@ -3,10 +3,7 @@ package com.oegs.wpc.model;
 import com.oegs.wpc.audit.AuditableEntity;
 import com.oegs.wpc.enums.StatusEnum;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -16,6 +13,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder(toBuilder = true)
 public class WorkingHours extends AuditableEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

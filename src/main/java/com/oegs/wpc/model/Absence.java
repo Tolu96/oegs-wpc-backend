@@ -4,10 +4,7 @@ import com.oegs.wpc.audit.AuditableEntity;
 import com.oegs.wpc.enums.AbsenceStatusEnum;
 import com.oegs.wpc.enums.StatusEnum;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -17,6 +14,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder(toBuilder = true)
 public class Absence extends AuditableEntity {
 
     @Id
@@ -41,4 +39,5 @@ public class Absence extends AuditableEntity {
 
     @Column(name = "status")
     private StatusEnum status;
+
 }

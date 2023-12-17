@@ -20,5 +20,4 @@ public class AbsenceDTO {
     LocalDate absenceEnd;
     EmployeeDTO employee;
     StatusEnum status;
-
 }

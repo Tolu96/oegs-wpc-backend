@@ -22,6 +22,7 @@ public class EmployeeDTO {
     String nationality;
     boolean isEmployed;
     LocalDate employedSince;
+    int remainingVacation;
 
     @JsonIgnore
     public boolean isEmployed() {
@@ -32,5 +33,5 @@ public class EmployeeDTO {
     public LocalDate getEmployedSince() {
         return employedSince;
     }
-    
+
 }

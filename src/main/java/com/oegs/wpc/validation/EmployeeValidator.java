@@ -28,6 +28,7 @@ public class EmployeeValidator {
     public void creationPreCondition(Employee employee) {
         fieldLengthChecker(employee);
         isEmployedDateChecker(employee);
+        employee.setRemainingVacation(24);
     }
 
     public void updatePreCondition(Employee employee, UUID employeeId) {
