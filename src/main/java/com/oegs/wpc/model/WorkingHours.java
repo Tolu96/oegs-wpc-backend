@@ -30,6 +30,10 @@ public class WorkingHours extends AuditableEntity {
     @JoinColumn(name = "employee_id", referencedColumnName = "employee_id")
     private Employee employee;
 
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "client_id", referencedColumnName = "client_id")
+    private Client client;
+
     @Column(name = "status")
     private StatusEnum status;
 

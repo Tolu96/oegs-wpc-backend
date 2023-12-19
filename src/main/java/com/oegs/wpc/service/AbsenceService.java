@@ -47,7 +47,6 @@ public class AbsenceService extends AbsenceValidator {
         absence.setEmployee(employee);
 
         creationPreCondition(absence);
-
         return absenceMapper.modelToDto(absenceRepository.save(absence));
     }
 

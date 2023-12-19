@@ -1,9 +1,20 @@
 package com.oegs.wpc.service;
 
+import com.oegs.wpc.dto.ClientDTO;
+import com.oegs.wpc.dto.EmployeeDTO;
 import com.oegs.wpc.dto.WorkingHoursDTO;
+import com.oegs.wpc.mapper.ClientMapper;
+import com.oegs.wpc.mapper.EmployeeMapper;
 import com.oegs.wpc.mapper.WorkingHoursMapper;
+import com.oegs.wpc.model.Client;
+import com.oegs.wpc.model.Employee;
 import com.oegs.wpc.model.WorkingHours;
+import com.oegs.wpc.repository.ClientRepository;
+import com.oegs.wpc.repository.EmployeeRepository;
 import com.oegs.wpc.repository.WorkingHoursRepository;
+import com.oegs.wpc.validation.ClientValidator;
+import com.oegs.wpc.validation.EmployeeValidator;
+import com.oegs.wpc.validation.WorkingHoursValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,10 +25,18 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor
-public class WorkingHoursService {
+public class WorkingHoursService extends WorkingHoursValidator {
 
     private WorkingHoursRepository workingHoursRepository;
+    private EmployeeRepository employeeRepository;
+    private ClientRepository clientRepository;
+
+    private EmployeeValidator employeeValidator;
+    private ClientValidator clientValidator;
+
     private WorkingHoursMapper workingHoursMapper;
+    private EmployeeMapper employeeMapper;
+    private ClientMapper clientMapper;
 
     public List<WorkingHoursDTO> getAllWorkingHours() {
         return workingHoursMapper.modelsToDtos(workingHoursRepository.findAll());
@@ -30,17 +49,37 @@ public class WorkingHoursService {
     @Transactional
     public WorkingHoursDTO createNewWorkingHourEntry(WorkingHoursDTO workingHoursDTO) {
         WorkingHours workingHours = workingHoursMapper.dtoToModel(workingHoursDTO);
+
+        employeeValidator.employeeExistenceChecker(workingHours.getEmployee().getEmployeeId());
+        EmployeeDTO employeeDTO =
+                employeeMapper.modelToDto(employeeRepository.findById(workingHours.getEmployee().getEmployeeId()).get());
+        Employee employee = employeeMapper.dtoToModel(employeeDTO);
+        workingHours.setEmployee(employee);
+
+
+        clientValidator.clientExistenceChecker(workingHours.getClient().getClientId());
+        ClientDTO clientDTO =
+                clientMapper.modelToDto(clientRepository.findById(workingHours.getClient().getClientId()).get());
+        Client client = clientMapper.dtoToModel(clientDTO);
+        workingHours.setClient(client);
+
+        creationPreCondition(workingHours);
         return workingHoursMapper.modelToDto(workingHoursRepository.save(workingHours));
     }
 
     @Transactional
     public WorkingHoursDTO updateWorkingHourEntry(UUID workingHoursId, WorkingHours workingHoursToUpdate) {
+        updatePreCondition(workingHoursToUpdate, workingHoursId);
         workingHoursToUpdate.setWorkingHoursId(workingHoursId);
+        workingHoursToUpdate.setEmployee(workingHoursRepository.findById(workingHoursId).get().getEmployee());
+        workingHoursToUpdate.setClient(workingHoursRepository.findById(workingHoursId).get().getClient());
         return workingHoursMapper.modelToDto(workingHoursRepository.save(workingHoursToUpdate));
     }
 
     public void deleteWorkingHourEntry(UUID workingHoursId) {
-        workingHoursRepository.deleteById(workingHoursId);
+        if (workingHourExistenceChecker(workingHoursId)) {
+            workingHoursRepository.deleteById(workingHoursId);
+        }
     }
 
 }
