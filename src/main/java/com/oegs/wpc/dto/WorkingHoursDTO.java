@@ -16,5 +16,6 @@ public class WorkingHoursDTO {
     LocalDateTime workHourStart;
     LocalDateTime workHourEnd;
     EmployeeDTO employee;
+    ClientDTO client;
     StatusEnum status;
 }
