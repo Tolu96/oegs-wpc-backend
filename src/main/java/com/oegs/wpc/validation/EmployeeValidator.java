@@ -27,25 +27,25 @@ public class EmployeeValidator {
 
     public void creationPreCondition(Employee employee) {
         fieldLengthChecker(employee);
-        isEmployedDateChecker(employee);
+        employmentActiveDateChecker(employee);
         employee.setRemainingVacation(24);
     }
 
     public void updatePreCondition(Employee employee, UUID employeeId) {
         if (employeeExistenceChecker(employeeId)) {
             fieldLengthChecker(employee);
-            isEmployedDateChecker(employee);
+            employmentActiveDateChecker(employee);
             permissionChecker();
             return;
         }
         throw new ResponseStatusException(HttpStatus.CONFLICT, UPDATE_NOT_POSSIBLE);
     }
 
-    private void isEmployedDateChecker(Employee employee) {
+    private void employmentActiveDateChecker(Employee employee) {
         LocalDate employedSinceDate = LocalDate.now();
-        if (employee.isEmployed() && employee.getEmployedSince() == null) {
+        if (employee.isEmploymentActive() && employee.getEmployedSince() == null) {
             employee.setEmployedSince(employedSinceDate);
-        } else if (employee.isEmployed()) {
+        } else if (employee.isEmploymentActive()) {
             employee.setEmployedSince(employee.getEmployedSince());
         } else {
             employee.setEmployedSince(null);

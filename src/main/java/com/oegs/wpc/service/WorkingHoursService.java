@@ -20,8 +20,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -42,8 +42,12 @@ public class WorkingHoursService extends WorkingHoursValidator {
         return workingHoursMapper.modelsToDtos(workingHoursRepository.findAll());
     }
 
-    public Optional<WorkingHoursDTO> getWorkingHoursById(UUID workingHoursId) {
-        return Optional.ofNullable(workingHoursMapper.modelToDto(workingHoursRepository.findById(workingHoursId).orElseThrow()));
+    public List<WorkingHoursDTO> getWorkingHoursByEmployeeId(UUID employeeId) {
+        return workingHoursMapper.modelsToDtos(workingHoursRepository
+                .findAll()
+                .stream()
+                .filter(t -> t.getEmployee().getEmployeeId().equals(employeeId))
+                .collect(Collectors.toList()));
     }
 
     @Transactional

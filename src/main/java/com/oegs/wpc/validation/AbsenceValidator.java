@@ -108,19 +108,19 @@ public class AbsenceValidator {
                         .toList();
 
         for (Absence abs : allAbsenceEntriesForEmployee) {
-            List<LocalDate> test = new java.util.ArrayList<>(abs
+            List<LocalDate> oldEntries = new java.util.ArrayList<>(abs
                     .getAbsenceStart()
                     .datesUntil(abs.getAbsenceEnd().plusDays(1))
                     .toList());
 
-            List<LocalDate> test2 = absence
+            List<LocalDate> newEntry = absence
                     .getAbsenceStart()
                     .datesUntil(absence.getAbsenceEnd().plusDays(1))
                     .toList();
 
-            test.retainAll(test2);
+            oldEntries.retainAll(newEntry);
 
-            if (!test.isEmpty()) {
+            if (!oldEntries.isEmpty()) {
                 throw new ResponseStatusException(HttpStatus.CONFLICT, DUPLICATE_DATE_SELECTED);
             }
             return;

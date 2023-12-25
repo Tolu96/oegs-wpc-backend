@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -25,9 +24,9 @@ public class WorkingHoursController {
         return ResponseEntity.ok().body(workingHoursService.getAllWorkingHours());
     }
 
-    @GetMapping("{workingHoursId}")
-    private ResponseEntity<Optional<WorkingHoursDTO>> getWorkingHoursById(@PathVariable("workingHoursId") UUID workingHoursId) {
-        return ResponseEntity.ok().body(workingHoursService.getWorkingHoursById(workingHoursId));
+    @GetMapping("{employeeId}")
+    private ResponseEntity<List<WorkingHoursDTO>> getWorkingHoursByEmployeeId(@PathVariable("employeeId") UUID employeeId) {
+        return ResponseEntity.ok().body(workingHoursService.getWorkingHoursByEmployeeId(employeeId));
     }
 
     @PostMapping(value = "/", produces = "application/json")
