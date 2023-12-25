@@ -20,13 +20,13 @@ public class EmployeeDTO {
     String city;
     String gender;
     String nationality;
-    boolean isEmployed;
+    boolean employmentActive;
     LocalDate employedSince;
     int remainingVacation;
 
     @JsonIgnore
-    public boolean isEmployed() {
-        return isEmployed;
+    public boolean employmentActive() {
+        return employmentActive;
     }
 
     @JsonIgnore

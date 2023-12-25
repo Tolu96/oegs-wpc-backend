@@ -37,8 +37,8 @@ public class Employee extends AuditableEntity {
     @Column(name = "employed_since")
     private LocalDate employedSince;
 
-    @Column(name = "is_employed")
-    private boolean isEmployed;
+    @Column(name = "employment_active")
+    private boolean employmentActive;
 
     @Column(name = "remaining_vacation")
     private int remainingVacation;

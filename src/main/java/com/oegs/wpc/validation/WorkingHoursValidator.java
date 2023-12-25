@@ -1,8 +1,6 @@
 package com.oegs.wpc.validation;
 
 import com.oegs.wpc.model.WorkingHours;
-import com.oegs.wpc.repository.ClientRepository;
-import com.oegs.wpc.repository.EmployeeRepository;
 import com.oegs.wpc.repository.WorkingHoursRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,20 +14,17 @@ import java.util.UUID;
 public class WorkingHoursValidator {
     public final String WORKING_HOURS_NOT_FOUND_MESSAGE =
             "Working Hours with this ID does not exist and therefore " + "could not be found";
-    public final String WRONG_PERMISSION = "You do not have the right permissions to execute this action";
-    public final String UPDATE_NOT_POSSIBLE = "Update was not possible. Please try it again later";
 
     public final String DUPLICATE_WORKING_HOURS_FOUND = "Duplicate Working Hours were found. Entry could not saved.";
 
     public final String END_TIME_IS_BEFORE_START_TIME = "End time of this entry is before the start time. Please " +
             "check your entry.";
 
+    public final String START_TIME_AND_END_TIME_IS_EQUAL = "Start Time and Endtime are equal. Therefore the working " +
+            "hours are 0 seconds. Please try again.";
+
     @Autowired
     private WorkingHoursRepository workingHoursRepository;
-    @Autowired
-    private EmployeeRepository employeeRepository;
-    @Autowired
-    private ClientRepository clientRepository;
 
     public void creationPreCondition(WorkingHours workingHours) {
         checkIfWorkingHourExistsForSameDateTime(workingHours);
@@ -44,6 +39,7 @@ public class WorkingHoursValidator {
 
     private void checkIfWorkingHourExistsForSameDateTime(WorkingHours workingHours) {
         checkIfDateTimeIsValid(workingHours);
+        checkIfStartTimeIsEqualToEndTime(workingHours);
 
         List<WorkingHours> allWorkingHoursForEmployee =
                 workingHoursRepository.findAll().stream().filter(emp -> emp.getEmployee().getEmployeeId() == workingHours.getEmployee().getEmployeeId()).toList();
@@ -54,7 +50,6 @@ public class WorkingHoursValidator {
             }
         }
     }
-
 
     public boolean workingHourExistenceChecker(UUID workingHoursId) {
         boolean exists = workingHoursRepository.existsById(workingHoursId);
@@ -67,6 +62,12 @@ public class WorkingHoursValidator {
     private void checkIfDateTimeIsValid(WorkingHours workingHours) {
         if (workingHours.getWorkHourStart().isAfter(workingHours.getWorkHourEnd())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, END_TIME_IS_BEFORE_START_TIME);
+        }
+    }
+
+    private void checkIfStartTimeIsEqualToEndTime(WorkingHours workingHours) {
+        if (workingHours.getWorkHourStart().equals(workingHours.getWorkHourEnd())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, START_TIME_AND_END_TIME_IS_EQUAL);
         }
     }
 
